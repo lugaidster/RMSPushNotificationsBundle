@@ -1,5 +1,5 @@
 {
-    "name": "richsage/rms-push-notifications-bundle",
+    "name": "lugaidster/rms-push-notifications-bundle",
     "type": "symfony-bundle",
     "description": "Push notifications/messages for mobile devices",
     "keywords": ["push", "notification", "bundle", "gcm", "c2dm", "ios", "apns", "blackberry", "mpns", "windowsphone"],
@@ -7,13 +7,17 @@
     "license": "MIT",
     "authors": [
         {
+            "name": "Alberto Simón",
+            "email": "alberto@simon.ph"
+        },
+        {
             "name": "Rich Sage",
             "email": "rich.sage@gmail.com",
             "homepage": "http://www.richsage.co.uk/"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.5.0",
         "symfony/symfony": "2.*",
         "kriswallsmith/buzz": "*"
     },
