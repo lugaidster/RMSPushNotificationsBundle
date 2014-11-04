@@ -41,15 +41,9 @@ class AndroidNotification implements OSNotificationServiceInterface
     /**
      * Constructor
      *
-     * @param $username
-     * @param $password
-     * @param $source
      */
-    public function __construct($username, $password, $source)
+    public function __construct()
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->source = $source;
         $this->authToken = "";
     }
 
@@ -107,5 +101,42 @@ class AndroidNotification implements OSNotificationServiceInterface
         $this->authToken = $matches[1];
 
         return true;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+        $this->setPassword($configurationArray['password']);
+        $this->setSource($configurationArray['source']);
+        $this->setUsername($configurationArray['username']);
     }
 }

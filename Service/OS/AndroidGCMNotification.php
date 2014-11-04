@@ -50,13 +50,11 @@ class AndroidGCMNotification implements OSNotificationServiceInterface
     /**
      * Constructor
      *
-     * @param $apiKey
      * @param bool         $useMultiCurl
      * @param AbstractCurl $client       (optional)
      */
-    public function __construct($apiKey, $useMultiCurl, AbstractCurl $client = null)
+    public function __construct($useMultiCurl, AbstractCurl $client = null)
     {
-        $this->apiKey = $apiKey;
         if (!$client) {
             $client = ($useMultiCurl ? new MultiCurl() : new Curl());
         }
@@ -124,5 +122,24 @@ class AndroidGCMNotification implements OSNotificationServiceInterface
     public function getResponses()
     {
         return $this->responses;
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+        $this->setApiKey($configurationArray['apiKey']);
     }
 }

@@ -49,4 +49,16 @@ class MicrosoftNotification implements OSNotificationServiceInterface
 
         return $response->isSuccessful();
     }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+
+    }
+
 }

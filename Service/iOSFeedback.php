@@ -28,20 +28,6 @@ class iOSFeedback
     protected $passphrase;
 
     /**
-     * Constructor
-     *
-     * @param $sandbox
-     * @param $pem
-     * @param $passphrase
-     */
-    public function __construct($sandbox, $pem, $passphrase)
-    {
-        $this->sandbox = $sandbox;
-        $this->pem = $pem;
-        $this->passphrase = $passphrase;
-    }
-
-    /**
      * Gets an array of device UUID unregistration details
      * from the APN feedback service
      *
@@ -101,4 +87,40 @@ class iOSFeedback
         return $ctx;
     }
 
+    /**
+     * @param string $passphrase
+     */
+    public function setPassphrase($passphrase)
+    {
+        $this->passphrase = $passphrase;
+    }
+
+    /**
+     * @param string $pem
+     */
+    public function setPem($pem)
+    {
+        $this->pem = $pem;
+    }
+
+    /**
+     * @param boolean $sandbox
+     */
+    public function setSandbox($sandbox)
+    {
+        $this->sandbox = $sandbox;
+    }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+        $this->setPem($configurationArray['pem']);
+        $this->setPassphrase($configurationArray['passphrase']);
+        $this->setSandbox($configurationArray['sandbox']);
+    }
 }

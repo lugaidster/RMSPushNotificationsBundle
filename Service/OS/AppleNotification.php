@@ -66,26 +66,20 @@ class AppleNotification implements OSNotificationServiceInterface
 
     /**
      * Constructor
-     *
-     * @param $sandbox
-     * @param $pem
-     * @param $passphrase
      */
-    public function __construct($sandbox, $pem, $passphrase = "", $jsonUnescapedUnicode = FALSE)
+    public function __construct()
     {
-        $this->useSandbox = $sandbox;
-        $this->pem = $pem;
-        $this->passphrase = $passphrase;
         $this->apnStreams = array();
         $this->messages = array();
         $this->lastMessageId = -1;
-        $this->jsonUnescapedUnicode = $jsonUnescapedUnicode;
     }
 
     /**
      * Set option JSON_UNESCAPED_UNICODE to json encoders
      *
      * @param boolean $jsonUnescapedUnicode
+     *
+     * @return $this
      */
     public function setJsonUnescapedUnicode($jsonUnescapedUnicode)
     {
@@ -297,5 +291,43 @@ class AppleNotification implements OSNotificationServiceInterface
     public function getResponses()
     {
         return $this->responses;
+    }
+
+    /**
+     * @param string $pem
+     */
+    public function setPem($pem)
+    {
+        $this->pem = $pem;
+    }
+
+    /**
+     * @param string $passphrase
+     */
+    public function setPassphrase($passphrase)
+    {
+        $this->passphrase = $passphrase;
+    }
+
+    /**
+     * @param boolean $useSandbox
+     */
+    public function setUseSandbox($useSandbox)
+    {
+        $this->useSandbox = $useSandbox;
+    }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+        $this->setJsonUnescapedUnicode($configurationArray['jsonUnescapedUnicode']);
+        $this->setPassphrase($configurationArray['passphrase']);
+        $this->setPem($configurationArray['pem']);
+        $this->setUseSandbox($configurationArray['useSandbox']);
     }
 }

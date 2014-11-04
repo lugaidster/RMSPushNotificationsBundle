@@ -33,20 +33,6 @@ class BlackberryNotification implements OSNotificationServiceInterface
     protected $password;
 
     /**
-     * Constructor
-     *
-     * @param $evaluation
-     * @param $appID
-     * @param $password
-     */
-    public function __construct($evaluation, $appID, $password)
-    {
-        $this->evaluation = $evaluation;
-        $this->appID = $appID;
-        $this->password = $password;
-    }
-
-    /**
      * Sends a Blackberry Push message
      *
      * @param  \RMS\PushNotificationsBundle\Message\MessageInterface              $message
@@ -177,5 +163,42 @@ class BlackberryNotification implements OSNotificationServiceInterface
         $doc->appendChild($pap);
 
         return $doc->saveXML();
+    }
+
+    /**
+     * @param string $appID
+     */
+    public function setAppID($appID)
+    {
+        $this->appID = $appID;
+    }
+
+    /**
+     * @param string $evaluation
+     */
+    public function setEvaluation($evaluation)
+    {
+        $this->evaluation = $evaluation;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Configure the notifications service
+     *
+     * @param $configurationArray
+     * @return mixed
+     */
+    public function configure($configurationArray)
+    {
+        $this->setPassword($configurationArray['password']);
+        $this->setAppID($configurationArray['appID']);
+        $this->setEvaluation($configurationArray['evaluation']);
     }
 }
