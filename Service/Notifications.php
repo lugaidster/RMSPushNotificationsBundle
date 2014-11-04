@@ -81,4 +81,13 @@ class Notifications
     {
         return isset($this->handlers[$targetOS]);
     }
+
+    public function configureHandler($targetOs, $configurationArray)
+    {
+        if (!$this->supports($targetOs)) {
+            throw new \RuntimeException("OS type $targetOs not supported");
+        }
+
+        $this->handlers[$targetOs]->configure($configurationArray);
+    }
 }
