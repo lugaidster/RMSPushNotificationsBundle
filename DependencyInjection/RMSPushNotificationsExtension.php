@@ -34,30 +34,12 @@ class RMSPushNotificationsExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
         $this->setInitialParams();
-        if (isset($config["android"])) {
-            $this->setAndroidConfig($config);
-            $loader->load('android.xml');
-        }
-        if (isset($config["ios"])) {
-            $this->setiOSConfig($config);
-            $loader->load('ios.xml');
-        }
-        if (isset($config["mac"])) {
-            $this->setMacConfig($config);
-            $loader->load('mac.xml');
-        }
-        if (isset($config["blackberry"])) {
-            $this->setBlackberryConfig($config);
-            $loader->load('blackberry.xml');
-        }
-        if (isset($config['windowsphone'])) {
-            $this->setWindowsphoneConfig($config);
-            $loader->load('windowsphone.xml');
-        }
+        $loader->load('android.xml');
+        $loader->load('ios.xml');
+        $loader->load('mac.xml');
+        $loader->load('blackberry.xml');
+        $loader->load('windowsphone.xml');
     }
 
     /**
@@ -65,8 +47,9 @@ class RMSPushNotificationsExtension extends Extension
      */
     protected function setInitialParams()
     {
-        $this->container->setParameter("rms_push_notifications.android.enabled", false);
-        $this->container->setParameter("rms_push_notifications.ios.enabled", false);
+        $this->container->setParameter("rms_push_notifications.android.enabled", true);
+        $this->container->setParameter("rms_push_notifications.android.gcm.use_multi_curl", false);
+        $this->container->setParameter("rms_push_notifications.ios.enabled", true);
         $this->container->setParameter("rms_push_notifications.mac.enabled", false);
     }
 
