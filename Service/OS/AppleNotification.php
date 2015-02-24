@@ -92,8 +92,10 @@ class AppleNotification implements OSNotificationServiceInterface
      * Send a notification message
      *
      * @param  \RMS\PushNotificationsBundle\Message\MessageInterface|\RMS\PushNotificationsBundle\Service\OS\MessageInterface $message
+     *
      * @throws \RuntimeException
      * @throws \RMS\PushNotificationsBundle\Exception\InvalidMessageTypeException
+     *
      * @return bool
      */
     public function send(MessageInterface $message)
@@ -102,9 +104,9 @@ class AppleNotification implements OSNotificationServiceInterface
             throw new InvalidMessageTypeException(sprintf("Message type '%s' not supported by APN", get_class($message)));
         }
 
-        $apnURL = "ssl://gateway.push.apple.com:2195";
+        $apnURL = "tsl://gateway.push.apple.com:2195";
         if ($this->useSandbox) {
-            $apnURL = "ssl://gateway.sandbox.push.apple.com:2195";
+            $apnURL = "tsl://gateway.sandbox.push.apple.com:2195";
         }
 
         $messageId = ++$this->lastMessageId;
@@ -188,6 +190,7 @@ class AppleNotification implements OSNotificationServiceInterface
             // No stream found, setup a new stream
             $ctx = $this->getStreamContext();
             $this->apnStreams[$apnURL] = stream_socket_client($apnURL, $err, $errstr, 60, STREAM_CLIENT_CONNECT, $ctx);
+
             if (!$this->apnStreams[$apnURL]) {
                 throw new \RuntimeException("Couldn't connect to APN server. Error no $err: $errstr");
             }
