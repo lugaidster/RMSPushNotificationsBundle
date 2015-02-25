@@ -104,9 +104,9 @@ class AppleNotification implements OSNotificationServiceInterface
             throw new InvalidMessageTypeException(sprintf("Message type '%s' not supported by APN", get_class($message)));
         }
 
-        $apnURL = "tsl://gateway.push.apple.com:2195";
+        $apnURL = "tls://gateway.push.apple.com:2195";
         if ($this->useSandbox) {
-            $apnURL = "tsl://gateway.sandbox.push.apple.com:2195";
+            $apnURL = "tls://gateway.sandbox.push.apple.com:2195";
         }
 
         $messageId = ++$this->lastMessageId;
