@@ -328,6 +328,14 @@ class AppleNotification implements OSNotificationServiceInterface
      */
     public function configure($configurationArray)
     {
+        foreach ($this->apnStreams as $stream) {
+            fclose($this->apnStreams[$stream]);
+        }
+
+        $this->apnStreams = array();
+        $this->messages = array();
+        $this->lastMessageId = -1;
+
         $this->setJsonUnescapedUnicode($configurationArray['jsonUnescapedUnicode']);
         $this->setPassphrase($configurationArray['passphrase']);
         $this->setPem($configurationArray['pem']);
