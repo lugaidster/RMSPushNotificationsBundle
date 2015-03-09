@@ -121,6 +121,6 @@ class iOSFeedback
     {
         $this->setPem($configurationArray['pem']);
         $this->setPassphrase($configurationArray['passphrase']);
-        $this->setSandbox($configurationArray['sandbox']);
+        $this->setSandbox($configurationArray['useSandbox']);
     }
 }
