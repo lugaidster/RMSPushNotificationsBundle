@@ -254,17 +254,8 @@ class AppleNotification implements OSNotificationServiceInterface
     protected function createPayload($messageId, $expiry, $token, $message)
     {
         if ($this->jsonUnescapedUnicode) {
-            // Validate PHP version
-            if (!version_compare(PHP_VERSION, '5.4.0', '>=')) {
-                throw new \LogicException(sprintf(
-                    'Can\'t use JSON_UNESCAPED_UNICODE option on PHP %s. Support PHP >= 5.4.0',
-                    PHP_VERSION
-                ));
-            }
-
             // WARNING:
-            // Set otpion JSON_UNESCAPED_UNICODE is violation
-            // of RFC 4627
+            // Set option JSON_UNESCAPED_UNICODE is violation of RFC 4627
             // Because required validate charsets (Must be UTF-8)
 
             $encoding = mb_detect_encoding($message['aps']['alert']);
@@ -329,7 +320,9 @@ class AppleNotification implements OSNotificationServiceInterface
     public function configure($configurationArray)
     {
         foreach ($this->apnStreams as $stream) {
-            fclose($this->apnStreams[$stream]);
+            if (null !== $stream) {
+                fclose($stream);
+            }
         }
 
         $this->apnStreams = array();
